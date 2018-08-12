@@ -28,8 +28,8 @@
 
 enum StopChargingCmdResult	// Refer to CmdStopCharging
 {
-	SUCCESS = 0,
-	FAILURE,
+	STOP_CHARGING_SUCCESS = 0,
+	STOP_CHARGING_FAILURE,
 	NOT_IN_CHARGING,
 };
 
@@ -49,12 +49,12 @@ enum ChargingMode	// Refer to CmdStartCharging
 
 enum StartChargingResult	// Refer to CmdStartCharging
 {
-	SUCCESS = 0,
+	START_CHARGING_SUCCESS = 0,
 	CC1_NOT_CONNECTED,
 	INSULATION_DETECTION_TIMEOUT,
 	INSULATION_DETECTION_ABNORMAL,
 	OUT_OF_SERVICE,
-	SYSTEM_FAULT,
+	START_CHARGING_SYSTEM_FAULT,
 	APS_NOT_MATCH,
 	APS_START_FAILURE,
 	TIMEOUT,
@@ -67,8 +67,8 @@ enum StartChargingResult	// Refer to CmdStartCharging
 
 enum SettingParametersCmdResult		// Refer to RspSettingParamters
 {
-	SUCCESS = 0,
-	FAILURE,
+	SET_PARAM_SUCCESS = 0,
+	SET_PARAM_FAILURE,
 	WRONG_PARAMETER,
 };
 
@@ -81,7 +81,7 @@ enum WorkingStatus	// Refer to CmdChargingStatusUpload
 	START_FAILURE,
 	GUN_IS_NOT_CHARING,
 	IN_DETECTING,
-	SYSTEM_FAULT,
+	WORKING_STATUS_SYSTEM_FAULT,
 };
 
 enum BMSChargingMode	// Refer to CmdChargingStatusUpload
@@ -92,8 +92,8 @@ enum BMSChargingMode	// Refer to CmdChargingStatusUpload
 
 enum SignInFlag		// Refer to RspSignIn
 {
-	SUCCESS = 0,
-	FAILURE,
+	SIGNIN_SUCCESS = 0,
+	SIGNIN_FAILURE,
 };
 
 enum WarningLevel	// Refer to CmdWarningUpload
@@ -130,7 +130,7 @@ struct FrameHead
 
 struct FrameTail
 {
-	uint8 status;	// Currently, according to protocal 2018_8_6, when status is 1, sign area is supported
+	uint8 status;	// Currently, according to protocal 2018_8_6, when status is 0x80, sign area is supported
 	char signatureInMD5[32];	// Generated from timeInBCD and private key of charger, private key is provided by customer
 	uint8 timeInBCD[8];		// eg. 2015-07-22-13-16-15 -> 0x20 0x15 0x07 0x22 0x13 0x16 0x15 0xff
 	uint8 checksum;		// cmdType + cmdBody, lower 8bits
